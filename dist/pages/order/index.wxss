@@ -1,0 +1,39 @@
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[2]!./node_modules/resolve-url-loader/index.js!./node_modules/@tarojs/webpack5-runner/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[4]!./src/pages/order/index.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.tip {
+  font-size: 20rpx;
+  margin-left: 20rpx;
+}
+
+.total {
+  text-align: center;
+}
+
+.list .list-content {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10rpx;
+  width: 100%;
+}
+
+.name {
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+  margin-left: 10rpx;
+}
+
+.count {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+.price {
+  display: inline-block;
+  text-align: right;
+  width: 100%;
+  margin-right: 30rpx;
+}
