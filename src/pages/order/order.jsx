@@ -1,18 +1,11 @@
-import { View, label } from "@tarojs/components";
+import { View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import "./index.scss";
 export default function Order() {
-  const pages = Taro.getCurrentPages();
-  const current = pages[pages.length - 1];
-  const eventChannel = current.getOpenerEventChannel();
-  // 接收 A页面的 events 中的 acceptDataFromOpenerPage 传递的数据
-  eventChannel.on("acceptDataFromOpenerPage", (res) => {
-    console.log(res);
-    window.orderArray = res.data;
-  });
-  const newArray = window.orderArray.orderArray;
-  const totalPrice = window.orderArray.totalPrice;
-  console.log(newArray);
+  const List = Taro.getCurrentInstance().preloadData;
+  console.log(List);
+  const newArray = List.newArray;
+  const totalPrice = List.totalPrice;
   function Return() {
     Taro.navigateBack();
   }

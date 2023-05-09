@@ -130,26 +130,16 @@ export default function Fruit() {
     }
     //如果购物车无商品，不跳转页面
     if (orderArray.length >= 1) {
+      console.log("旧页面", orderArray, totalPrice);
       Taro.navigateTo({
         url: "../order/index",
-        events: {
-          // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-          acceptDataFromOpenedPage: function (data) {
-            console.log(data);
-          },
-          someEvent: function (data) {
-            console.log("--->", data);
-          },
-        },
-        success: function (res) {
-          // 通过eventChannel向被打开页面传送数据
-          res.eventChannel.emit("acceptDataFromOpenerPage", {
-            data: { orderArray, totalPrice },
-          });
-          jumpClear();
-          console.log("yiqingkong");
-        },
       });
+      const newArray = [];
+      newArray.value = orderArray;
+      const Price = Number;
+      Price.vaule = totalPrice;
+      Taro.preload({ newArray: orderArray, totalPrice: totalPrice });
+      jumpClear();
     } else {
       Taro.showToast({
         title: "请添加商品",

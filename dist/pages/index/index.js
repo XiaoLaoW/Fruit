@@ -184,29 +184,19 @@ function Fruit() {
     }
     //如果购物车无商品，不跳转页面
     if (orderArray.length >= 1) {
+      console.log("旧页面", orderArray, totalPrice);
       _tarojs_taro__WEBPACK_IMPORTED_MODULE_1___default().navigateTo({
-        url: "../order/index",
-        events: {
-          // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-          acceptDataFromOpenedPage: function acceptDataFromOpenedPage(data) {
-            console.log(data);
-          },
-          someEvent: function someEvent(data) {
-            console.log("--->", data);
-          }
-        },
-        success: function success(res) {
-          // 通过eventChannel向被打开页面传送数据
-          res.eventChannel.emit("acceptDataFromOpenerPage", {
-            data: {
-              orderArray: orderArray,
-              totalPrice: totalPrice
-            }
-          });
-          jumpClear();
-          console.log("yiqingkong");
-        }
+        url: "../order/index"
       });
+      var newArray = [];
+      newArray.value = orderArray;
+      var Price = Number;
+      Price.vaule = totalPrice;
+      _tarojs_taro__WEBPACK_IMPORTED_MODULE_1___default().preload({
+        newArray: orderArray,
+        totalPrice: totalPrice
+      });
+      jumpClear();
     } else {
       _tarojs_taro__WEBPACK_IMPORTED_MODULE_1___default().showToast({
         title: "请添加商品",

@@ -60,7 +60,6 @@ var inst = Page((0,_tarojs_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig
 /* harmony import */ var _tarojs_taro__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_tarojs_taro__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "webpack/container/remote/react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* provided dependency */ var window = __webpack_require__(/*! @tarojs/runtime */ "webpack/container/remote/@tarojs/runtime")["window"];
 
 
 
@@ -68,17 +67,10 @@ var inst = Page((0,_tarojs_runtime__WEBPACK_IMPORTED_MODULE_0__.createPageConfig
 
 
 function Order() {
-  var pages = _tarojs_taro__WEBPACK_IMPORTED_MODULE_0___default().getCurrentPages();
-  var current = pages[pages.length - 1];
-  var eventChannel = current.getOpenerEventChannel();
-  // 接收 A页面的 events 中的 acceptDataFromOpenerPage 传递的数据
-  eventChannel.on("acceptDataFromOpenerPage", function (res) {
-    console.log(res);
-    window.orderArray = res.data;
-  });
-  var newArray = window.orderArray.orderArray;
-  var totalPrice = window.orderArray.totalPrice;
-  console.log(newArray);
+  var List = _tarojs_taro__WEBPACK_IMPORTED_MODULE_0___default().getCurrentInstance().preloadData;
+  console.log(List);
+  var newArray = List.newArray;
+  var totalPrice = List.totalPrice;
   function Return() {
     _tarojs_taro__WEBPACK_IMPORTED_MODULE_0___default().navigateBack();
   }
