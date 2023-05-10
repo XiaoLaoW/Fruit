@@ -6,6 +6,12 @@ export default function Order() {
   console.log(List);
   const newArray = List.newArray;
   const totalPrice = List.totalPrice;
+  Taro.setStorage({
+    key: "oldArray",
+    data: newArray,
+    key: "Price",
+    data: totalPrice,
+  });
   function Return() {
     Taro.navigateBack();
   }
