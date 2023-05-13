@@ -1,0 +1,29 @@
+.tip {
+  font-size: 20rpx;
+  margin-left: 20rpx;
+}
+.total {
+  text-align: center;
+}
+.list .list-content {
+  display: flex;
+  margin: 10rpx;
+  width: 100%;
+}
+.name {
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+  margin-left: 10rpx;
+}
+.count {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+.price {
+  display: inline-block;
+  text-align: right;
+  width: 100%;
+  margin-right: 30rpx;
+}
