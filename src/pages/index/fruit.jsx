@@ -1,68 +1,75 @@
-import { View, Image, Button } from "@tarojs/components";
+import { View, Image, Button, Input } from "@tarojs/components";
 import { useState } from "react";
-import Taro from "@tarojs/taro";
+import Taro, { eventCenter } from "@tarojs/taro";
 import A from "../../image/jiantou.png";
 import Ad from "../../image/add.png";
 import Le from "../../image/reduce.png";
-import { window } from "@tarojs/runtime";
+import { eventHandler, window } from "@tarojs/runtime";
 
 export default function Fruit() {
+  Taro.cloud.init({
+    env: "test-taro1-4gdydbsi405487f2",
+  });
+  const db = Taro.cloud.database({
+    env: "test-taro1",
+  });
+
   const fruitList = [
     {
       id: 1,
       text: "蓝莓到货‼️‼️高品质蓝莓🫐诱人的蓝色小浆果，皮薄、肉脆、味甜！营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
       title: "蓝莓",
       price: "10",
-      count: 0,
+      count: "",
     },
     {
       id: 2,
       text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
       title: "草莓",
       price: "100",
-      count: 0,
+      count: "",
     },
     {
       id: 3,
       text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
       title: "banana",
       price: "10",
-      count: 0,
+      count: "",
     },
     {
       id: 4,
       text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
       title: "宁夏大西瓜",
       price: "10",
-      count: 0,
+      count: "",
     },
     {
       id: 5,
       text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
       title: "仙人球",
       price: "10",
-      count: 0,
+      count: "",
     },
     {
       id: 6,
       text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
       title: "玛卡巴卡",
       price: "10",
-      count: 0,
+      count: "",
     },
     {
       id: 7,
       text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
       title: "无锡底细",
       price: "10",
-      count: 0,
+      count: "",
     },
     {
       id: 8,
       text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
       title: "banan",
       price: "10",
-      count: 0,
+      count: "",
     },
   ];
   const [List, setList] = useState(fruitList);
@@ -74,7 +81,7 @@ export default function Fruit() {
     const oldText = text;
     const oldtitle = title;
     const oldPrice = price;
-    const newCount = count - 1;
+    const newCount = Number(count) - 1;
     const newArray = {
       id: oldId,
       text: oldText,
@@ -99,7 +106,7 @@ export default function Fruit() {
     const oldText = text;
     const oldtitle = title;
     const oldPrice = price;
-    const newCount = count + 1;
+    const newCount = Number(count) + 1;
     const newArray = {
       id: oldId,
       text: oldText,
@@ -121,16 +128,28 @@ export default function Fruit() {
   function order() {
     var orderArray = [];
     for (var i = 0; i < List.length; i++) {
-      var count = List[i].count;
+      var id = i;
+      var count = Number(List[i].count);
       var title = List[i].title;
       var price = List[i].price;
-      if (count) {
-        orderArray.push({ count, title, price });
+      if (count > 0 || count < 0) {
+        orderArray.push({ id, count, title, price });
       }
     }
     //如果购物车无商品，不跳转页面
     if (orderArray.length >= 1) {
-      console.log("旧页面", orderArray, totalPrice);
+      db.collection("orderList")
+        .add({
+          // data 字段表示需新增的 JSON 数据
+          data: {
+            description: "learn cloud database",
+            done: false,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch(console.log("555555"));
       Taro.navigateTo({
         url: "../order/index",
       });
@@ -166,6 +185,35 @@ export default function Fruit() {
     setTotalPrice(0);
     setList(fruitList);
   }
+  //更新数量
+  function updateCount(e, item) {
+    var inputCount = e.detail.value;
+    const oldId = item.id;
+    const oldText = item.text;
+    const oldtitle = item.title;
+    const oldPrice = item.price;
+    const oldCount = item.count;
+    const newCount = inputCount;
+    const newArray = {
+      id: oldId,
+      text: oldText,
+      title: oldtitle,
+      price: oldPrice,
+      count: newCount,
+    };
+    setList((List) => {
+      var ListA = JSON.parse(JSON.stringify(List));
+      ListA.splice(oldId - 1, 1, newArray);
+      return ListA;
+    });
+    //计算总价格 计算总数量
+
+    var newPrice = inputCount * oldPrice - oldCount * Number(oldPrice);
+    setTotalPrice(totalPrice + Number(newPrice));
+    var newTotalCount = totalCount - Number(oldCount) + Number(inputCount);
+    setTotalCount(newTotalCount);
+  }
+
   return (
     <>
       <view className="container">
@@ -180,7 +228,14 @@ export default function Fruit() {
                   <text>
                     {item.id}.{item.title}
                   </text>
-                  <text className="countText">购买数量:{item.count}</text>
+                  <Input
+                    className="input"
+                    placeholder="0"
+                    type="digit"
+                    value={item.count}
+                    onBlur={(event) => updateCount(event, item)}
+                  />
+                  <text className="countText">购买数量:</text>
                 </view>
                 <view className="price">
                   单价:{item.price}

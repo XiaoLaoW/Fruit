@@ -1,14 +1,9 @@
-import { View, Image, Button } from "@tarojs/components";
-import Taro from "@tarojs/taro";
+import { View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import { useState } from 'react'
 export default function History() {
   function history() {
-    Taro.getStorage({
-      key: "oldArray",
-      key: "Price",
-      success: function (res) {
-        console.log(res);
-      },
-    });
+    Taro.navigateTo({ url: './history/index' })
   }
   return (
     <>
@@ -16,5 +11,5 @@ export default function History() {
         <text onClick={() => history()}>历史订单</text>
       </View>
     </>
-  );
+  )
 }
