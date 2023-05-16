@@ -1,7 +1,7 @@
 import { View } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import "./index.scss";
-import { getNowTime } from "../utils/utils";
+import { getNowTime } from "../../utils/utils";
 import Index from ".";
 export default function Order() {
   const List = Taro.getCurrentInstance().preloadData;

@@ -1,3 +1,4 @@
+//获取当前时间
 function getNowTime() {
   var date = new Date();
   //年 getFullYear()：四位数字返回年份
@@ -14,18 +15,49 @@ function getNowTime() {
   var second = date.getSeconds();
 
   var time =
-    "下单时间：" +
     year +
     "-" +
-    month +
+    addZero(month) +
     "-" +
-    day +
+    addZero(day) +
     " " +
-    hour +
+    addZero(hour) +
     ":" +
-    minute +
+    addZero(minute) +
     ":" +
-    second;
+    addZero(second);
   return time;
 }
-export { getNowTime };
+
+//小于10的拼接上0字符串
+function addZero(s) {
+  return s < 10 ? "0" + s : s;
+}
+
+function dateToString(date) {
+  var year = date.getFullYear();
+  var month = (date.getMonth() + 1).toString();
+  var day = date.getDate().toString();
+  if (month.length == 1) {
+    month = "0" + month;
+  }
+  if (day.length == 1) {
+    day = "0" + day;
+  }
+  var hours = date.getHours().toString();
+  if (hours.length == 1) {
+    hours = "0" + hours;
+  }
+  var mintus = date.getMinutes().toString();
+  if (mintus.length == 1) {
+    mintus = "0" + mintus;
+  }
+  var second = date.getSeconds().toString();
+  if (second.length == 1) {
+    second = "0" + second;
+  }
+  var dateTime =
+    year + "-" + month + "-" + day + " " + hours + ":" + mintus + ":" + second;
+  return dateTime;
+}
+export { getNowTime, dateToString };
