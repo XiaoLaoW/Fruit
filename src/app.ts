@@ -1,9 +1,17 @@
-import { Component, PropsWithChildren } from "react";
-import Taro from "@tarojs/taro";
-import "./app.scss";
+import { Component, PropsWithChildren } from 'react'
+import Taro from '@tarojs/taro'
+import './app.scss'
 
 class App extends Component<PropsWithChildren> {
-  componentDidMount() {}
+  componentDidMount() {
+    if (!Taro.cloud) {
+      console.error
+    } else {
+      Taro.cloud.init({
+        traceUser: true,
+      })
+    }
+  }
 
   componentDidShow() {}
 
@@ -11,8 +19,8 @@ class App extends Component<PropsWithChildren> {
 
   render() {
     // this.props.children 是将要会渲染的页面
-    return this.props.children;
+    return this.props.children
   }
 }
 
-export default App;
+export default App
