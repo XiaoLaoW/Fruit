@@ -53,16 +53,18 @@ export default function List() {
     <>
       <view>本次团水果总件数:{countSum}件</view>
       <view>本次团水果总金额:{priceSum}元</view>
+      <view>
+        <text>以下是商品数量汇总:</text>
+      </view>
       <View className="total">
-        {" "}
-        <View className="totalTitle">
+        <View>
           {newArr.map((item) => {
-            return item;
+            return <view className="totalTitle">品名:{item}</view>;
           })}
         </View>
-        <View className="totalCount">
+        <View>
           {productsCount.map((item) => {
-            return item;
+            return <view className="totalCount">总件数:{item}件</view>;
           })}
         </View>
       </View>
