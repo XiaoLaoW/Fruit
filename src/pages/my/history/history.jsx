@@ -3,12 +3,12 @@ import Taro from '@tarojs/taro'
 import { useState } from 'react'
 import './index.scss'
 import { getArrayIndex } from '../../../utils/utils'
+import { warn } from '@tarojs/shared'
 export default function Order() {
-  // const List = Taro.getCurrentInstance().preloadData
-  // const hisArray = List.hisArray
   const [Array, setArray] = useState([])
-  const [Price, setPrice] = useState('没有购买记录')
+  const [Price, setPrice] = useState('无购买记录')
   const [time, setTime] = useState('')
+  const [locationId, setLocationId] = useState()
   try {
     Taro.getStorage({
       key: 'oldArray',
@@ -34,22 +34,37 @@ export default function Order() {
     }).then((res) => {
       setTime(res.data)
     })
+    Taro.getStorage({
+      key: 'id',
+      success: (res) => {
+        return res
+      },
+    }).then((res) => {
+      setLocationId(res.data)
+    })
   } catch (error) {
     console.log('未获取到缓存')
   }
-  // try {
-  //   Taro.getStorage({
-  //     key: 'Price',
-  //     success: (res) => {
-  //       return res
-  //     },
-  //   }).then((res) => {
-  //     setPrice(res.data)
-  //   })
-  // } catch (error) {
-  //   console.log('未获取到缓存')
-  // }
-
+  //撤销单据
+  const [type1, setType1] = useState(1)
+  async function revoke() {
+    const c1 = new Taro.cloud.Cloud({
+      resourceEnv: 'test-taro1-4gdydbsi405487f2',
+    })
+    const db = Taro.cloud.database({})
+    await db
+      .collection('orderList')
+      .where({
+        _id: locationId,
+      })
+      .remove()
+    Taro.showToast({
+      title: '删除成功',
+      icon: 'success',
+      duration: 1000,
+    })
+    setType1(0)
+  }
   return (
     <>
       <view>
@@ -67,6 +82,9 @@ export default function Order() {
       </view>
       <view>订单总金额:{Price}</view>
       <view>{time}</view>
+      <button type={type1 ? 'warn' : 'primary'} onClick={() => revoke()}>
+        撤销单据
+      </button>
     </>
   )
 }

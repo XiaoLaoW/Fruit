@@ -3,6 +3,9 @@
   margin: 10rpx;
   width: 100%;
 }
+.list {
+  border-bottom: 1px dotted #000;
+}
 .name {
   display: inline-block;
   text-align: left;
@@ -28,9 +31,24 @@
 .title {
   margin-left: 10rpx;
 }
+.all {
+  border-bottom: 1px dotted #000;
+}
 .totalTitle {
   flex-direction: column;
 }
 .totalCount {
   flex-direction: column;
+}
+.clientName {
+  padding-left: 10rpx;
+  border-top: 1px dotted black;
+}
+
+.list .clientName .name {
+  display: inline-block;
+}
+.list .clientName .price {
+  display: inline-block;
+  margin-left: 10rpx;
 }

@@ -14,9 +14,20 @@ export default function List() {
   const firstArray = []
   for (var i = 0; i < result.length; i++) {
     var Price = result[i].totalPrice
+    var clientName = result[i].clientName
+    var price = result[i].totalPrice
     totalPrice.push(Price)
     var secondArray = result[i].array
     for (var j = 0; j < secondArray.length; j++) {
+      if (j === 0) {
+        firstArray.push({
+          name: clientName,
+          count: 0,
+          title: '购买人',
+          price: price,
+        })
+      } else {
+      }
       firstArray.push(secondArray[j])
     }
   }
@@ -48,25 +59,40 @@ export default function List() {
     }, 0)
     productsCount.push(count)
 
-    console.log(count)
+    console.log(productsCount)
   }
 
   return (
     <>
-      <view className="title">本次团水果总件数:{countSum}件</view>
-      <view className="title">本次团水果总金额:{priceSum}元</view>
+      <view className="all">
+        <view className="title">本次团水果总件数:{countSum}件</view>
+        <view className="title">本次团水果总金额:{priceSum}元</view>
+      </view>
+
       <view>
         <text className="title">以下是商品数量汇总:</text>
       </view>
       <View className="total">
         <View>
           {newArr.map((item) => {
-            return <view className="totalTitle">品名:{item}</view>
+            return (
+              <view
+                style={item == '购买人' ? 'display:none' : 'display:flex'}
+                className="totalTitle">
+                品名:{item}
+              </view>
+            )
           })}
         </View>
         <View>
           {productsCount.map((item) => {
-            return <view className="totalCount">总件数:{item}件</view>
+            return (
+              <view
+                style={item === 0 ? 'display:none' : 'display:flex'}
+                className="totalCount">
+                总件数:{item}件
+              </view>
+            )
           })}
         </View>
       </View>
@@ -75,12 +101,19 @@ export default function List() {
         {firstArray.map((item) => {
           return (
             <>
-              <view className="list-content" key={firstArray.index}>
-                <view className="name">
-                  {getArrayIndex(firstArray, item) + 1}.{item.title}
-                </view>
+              <view
+                style={item.count != 0 ? 'display:flex' : 'display:none'}
+                className="list-content"
+                key={firstArray.index}>
+                <view className="name">{item.title}</view>
                 <view className="count">数量:{item.count}</view>
                 <view className="price">单价:{item.price}</view>
+              </view>
+              <view
+                style={item.count === 0 ? 'display:flex' : 'display:none'}
+                className="clientName">
+                <view className="name">购买人:{item.name}</view>
+                <view className="price">本次应付:{item.price}元</view>
               </view>
             </>
           )

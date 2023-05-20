@@ -1,3 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: '拼果团',
+  navigationBarTitleText: '注册页',
+  navigationBarBackgroundColor: '#fff',
 })

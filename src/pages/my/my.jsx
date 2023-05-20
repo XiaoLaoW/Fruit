@@ -24,6 +24,7 @@ export default function History() {
       })
       .get()
     console.log(result)
+
     const ResultList = []
     ResultList.value = result
     Taro.preload({ ResultList: result })
