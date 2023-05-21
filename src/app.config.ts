@@ -6,6 +6,7 @@ export default defineAppConfig({
     "pages/order/index",
     "pages/my/history/index",
     "pages/my/orderList/index",
+    "pages/my/upDate/index",
   ],
   window: {
     backgroundTextStyle: "light",

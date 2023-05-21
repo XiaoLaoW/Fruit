@@ -1,78 +1,43 @@
 import { View, Image, Button, Input } from "@tarojs/components";
-import { useState } from "react";
-import Taro, { eventCenter } from "@tarojs/taro";
+import { useState, useEffect } from "react";
+import Taro, { eventCenter, usePullDownRefresh } from "@tarojs/taro";
 import A from "../../image/jiantou.png";
 import Ad from "../../image/add.png";
 import Le from "../../image/reduce.png";
 import { eventHandler, window } from "@tarojs/runtime";
 import { getNowTime } from "../../utils/utils";
 export default function Fruit() {
+  // const ListValue = Taro.getCurrentInstance().preloadData;
   const c1 = new Taro.cloud.Cloud({
     resourceEnv: "test-taro1-4gdydbsi405487f2",
   });
-  const db = Taro.cloud.database({});
-  const clientName = Taro.getStorageSync("yourName");
-  const fruitList = [
-    {
-      id: 1,
-      text: "蓝莓到货‼️‼️高品质蓝莓🫐诱人的蓝色小浆果，皮薄、肉脆、味甜！营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
-      title: "蓝莓",
-      price: "10",
-      count: "",
-    },
-    {
-      id: 2,
-      text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
-      title: "草莓",
-      price: "100",
-      count: "",
-    },
-    {
-      id: 3,
-      text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
-      title: "banana",
-      price: "10",
-      count: "",
-    },
-    {
-      id: 4,
-      text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
-      title: "宁夏大西瓜",
-      price: "10",
-      count: "",
-    },
-    {
-      id: 5,
-      text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
-      title: "仙人球",
-      price: "10",
-      count: "",
-    },
-    {
-      id: 6,
-      text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
-      title: "玛卡巴卡",
-      price: "10",
-      count: "",
-    },
-    {
-      id: 7,
-      text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
-      title: "无锡底细",
-      price: "10",
-      count: "",
-    },
-    {
-      id: 8,
-      text: "营养丰富，“浆果之王”美誉可不是盖的口感鲜甜，大果（16➕）：3盒55，6盒100",
-      title: "banan",
-      price: "10",
-      count: "",
-    },
-  ];
-  const [List, setList] = useState(fruitList);
+  const db = Taro.cloud.database();
+  const clientName = Taro.getStorageSync("yourName"); // 获取本地缓存中的用户名
+  const [List, setList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
+
+  //获取水果列表
+  useEffect(() => {
+    db.collection("fruitList")
+      .get()
+      .then((res) => {
+        setList(res.data);
+      });
+  }, []); //页面加载时获取列表数据
+  async function FruitList1() {
+    await db
+      .collection("fruitList")
+      .get()
+      .then((res) => {
+        setList(res.data);
+        console.log("已更新:", res.data);
+      });
+  }
+  usePullDownRefresh(() => {
+    FruitList1();
+    Taro.stopPullDownRefresh();
+  });
 
   function Less(id, text, title, price, count) {
     const oldId = id;
@@ -115,6 +80,7 @@ export default function Fruit() {
     setList((List) => {
       var ListA = JSON.parse(JSON.stringify(List));
       ListA.splice(id - 1, 1, newArray);
+      console.log(ListA);
       return ListA;
     });
     //计算总价格
@@ -195,7 +161,7 @@ export default function Fruit() {
   function clear() {
     setTotalCount(0);
     setTotalPrice(0);
-    setList(fruitList);
+    FruitList1();
     Taro.showLoading({
       title: "已清空购物车",
     });
@@ -207,7 +173,7 @@ export default function Fruit() {
   function jumpClear() {
     setTotalCount(0);
     setTotalPrice(0);
-    setList(fruitList);
+    FruitList1();
   }
   //更新数量
   function updateCount(e, item) {

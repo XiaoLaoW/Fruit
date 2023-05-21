@@ -1,69 +1,75 @@
-import { View, Image, Button } from '@tarojs/components'
-import Taro from '@tarojs/taro'
-import { useState } from 'react'
-import './index.scss'
-import { getArrayIndex } from '../../../utils/utils'
-import { warn } from '@tarojs/shared'
+import { View, Image, Button } from "@tarojs/components";
+import Taro from "@tarojs/taro";
+import { useState } from "react";
+import "./index.scss";
+import { getArrayIndex } from "../../../utils/utils";
+import { warn } from "@tarojs/shared";
 export default function Order() {
-  const [Array, setArray] = useState([])
-  const [Price, setPrice] = useState('无购买记录')
-  const [time, setTime] = useState('')
-  const [locationId, setLocationId] = useState()
+  const [Array, setArray] = useState([]);
+  const [Price, setPrice] = useState("无购买记录");
+  const [time, setTime] = useState("");
+  const [locationId, setLocationId] = useState();
   try {
     Taro.getStorage({
-      key: 'oldArray',
+      key: "oldArray",
       success: (res) => {
-        return res
+        return res;
       },
     }).then((res) => {
-      setArray(res.data)
-    })
+      setArray(res.data);
+    });
     Taro.getStorage({
-      key: 'Price',
+      key: "Price",
       success: (res) => {
-        return res
+        return res;
       },
     }).then((res) => {
-      setPrice(res.data)
-    })
+      setPrice(res.data);
+    });
     Taro.getStorage({
-      key: 'time',
+      key: "time",
       success: (res) => {
-        return res
+        return res;
       },
     }).then((res) => {
-      setTime(res.data)
-    })
+      setTime(res.data);
+    });
     Taro.getStorage({
-      key: 'id',
+      key: "id",
       success: (res) => {
-        return res
+        return res;
       },
     }).then((res) => {
-      setLocationId(res.data)
-    })
+      setLocationId(res.data);
+    });
   } catch (error) {
-    console.log('未获取到缓存')
+    console.log("未获取到缓存");
   }
   //撤销单据
-  const [type1, setType1] = useState(1)
+  const [type1, setType1] = useState(1);
   async function revoke() {
     const c1 = new Taro.cloud.Cloud({
-      resourceEnv: 'test-taro1-4gdydbsi405487f2',
-    })
-    const db = Taro.cloud.database({})
+      resourceEnv: "test-taro1-4gdydbsi405487f2",
+    });
+    const db = Taro.cloud.database({});
     await db
-      .collection('orderList')
+      .collection("orderList")
       .where({
         _id: locationId,
       })
-      .remove()
+      .remove();
     Taro.showToast({
-      title: '删除成功',
-      icon: 'success',
+      title: "订单删除成功",
+      icon: "success",
       duration: 1000,
-    })
-    setType1(0)
+    });
+    setType1(0);
+  }
+  //撤销成功返回下单
+  function goBack() {
+    Taro.switchTab({
+      url: "../../index/index",
+    });
   }
   return (
     <>
@@ -77,14 +83,32 @@ export default function Order() {
               <view className="count">数量:{item.count}</view>
               <view className="price">单价:{item.price}</view>
             </View>
-          )
+          );
         })}
       </view>
       <view>订单总金额:{Price}</view>
       <view>{time}</view>
-      <button type={type1 ? 'warn' : 'primary'} onClick={() => revoke()}>
-        撤销单据
-      </button>
+      <view>
+        <button
+          className="btn"
+          style={type1 === 1 ? "display:flex" : "display:none"}
+          type="warn"
+          onClick={() => revoke()}
+        >
+          撤销单据
+        </button>
+        <button
+          className="btn"
+          style={type1 === 1 ? "display:none" : "display:flex"}
+          type="primary"
+          onClick={() => goBack()}
+        >
+          重新下单
+        </button>
+      </view>
+      <view className="tip">
+        <text>Tip:撤销按钮对当前订单仅生效一次，重复点击无效</text>
+      </view>
     </>
-  )
+  );
 }

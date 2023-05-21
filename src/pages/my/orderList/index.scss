@@ -26,19 +26,26 @@
 .total {
   display: flex;
   flex-direction: row;
-  margin-left: 10rpx;
+  margin-left: 15rpx;
+}
+.totalList {
+  margin: 15rpx 0;
 }
 .title {
   margin-left: 10rpx;
 }
 .all {
+  margin: 10rpx 0;
   border-bottom: 1px dotted #000;
+  font-size: large;
 }
 .totalTitle {
   flex-direction: column;
+  margin: 4rpx 0;
 }
 .totalCount {
   flex-direction: column;
+  margin: 4rpx 0;
 }
 .clientName {
   padding-left: 10rpx;
