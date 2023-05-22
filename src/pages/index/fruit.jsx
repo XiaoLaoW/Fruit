@@ -1,4 +1,4 @@
-import { View, Image, Button, Input } from "@tarojs/components";
+import { View, Image, Input, Button } from "@tarojs/components";
 import { useState, useEffect } from "react";
 import Taro, { eventCenter, usePullDownRefresh } from "@tarojs/taro";
 import A from "../../image/jiantou.png";
@@ -320,9 +320,7 @@ export default function Fruit() {
         <view className="total">
           <view className="content">
             <view className="totalP">当前总价格:{totalPrice.toFixed(2)}</view>
-            <view className="totalC">
-              购物车商品总数:{totalCount.toFixed(1)}
-            </view>
+            <view className="totalC">购物车商品总数:{totalCount}</view>
           </view>
           <view className="totalBtn">
             <view className="totalBtnOrder">
