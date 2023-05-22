@@ -1,3 +1,3 @@
 export default definePageConfig({
-  navigationBarTitleText: "拼果团",
+  navigationBarTitleText: "订单详情",
 });

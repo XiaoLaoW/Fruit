@@ -5,7 +5,7 @@ import A from "../../image/jiantou.png";
 import Ad from "../../image/add.png";
 import Le from "../../image/reduce.png";
 import { eventHandler, window } from "@tarojs/runtime";
-import { getNowTime } from "../../utils/utils";
+import { getNowTime, getArrayIndex } from "../../utils/utils";
 export default function Fruit() {
   // const ListValue = Taro.getCurrentInstance().preloadData;
   const c1 = new Taro.cloud.Cloud({
@@ -16,13 +16,14 @@ export default function Fruit() {
   const [List, setList] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
-
   //获取水果列表
   useEffect(() => {
+    Taro.showNavigationBarLoading();
     db.collection("fruitList")
       .get()
       .then((res) => {
         setList(res.data);
+        Taro.hideNavigationBarLoading();
       });
   }, []); //页面加载时获取列表数据
   async function FruitList1() {
@@ -34,12 +35,62 @@ export default function Fruit() {
         console.log("已更新:", res.data);
       });
   }
-  usePullDownRefresh(() => {
-    FruitList1();
+  //下拉刷新水果列表
+  usePullDownRefresh(async () => {
+    await db
+      .collection("fruitList")
+      .get()
+      .then((res) => {
+        console.log("已更新:");
+
+        setList(() => {
+          var newList1 = [];
+
+          const newList = res.data;
+          console.log(1, newList1, newList);
+          if (List.length < newList.length) {
+            for (var i = 0; i < List.length; i++) {
+              newList1.push(List[i]);
+            }
+            for (var j = List.length; j < newList.length; j++) {
+              newList1.push(newList[j]);
+            }
+          } else if (List.length > newList.length) {
+            for (var x = 0; x < List.length; x++) {
+              var obj = List[x];
+              for (var y = 0; y < newList.length; y++) {
+                var newObj = newList[y];
+                if (obj.title === newObj.title) {
+                  newList1.push(obj);
+                }
+              }
+            }
+            var price = 0;
+            var count = 0;
+            for (var j = 0; j < newList1.length; j++) {
+              price = newList1[j].count * newList1[j].price + price;
+              count = newList1[j].count + count;
+            }
+            console.log(price, count);
+            setTotalPrice(price);
+            setTotalCount(count);
+          } else {
+            for (var i = 0; i < List.length; i++) {
+              newList1.push(List[i]);
+            }
+          }
+
+          console.log(2, newList1);
+          return newList1;
+        });
+      });
+
     Taro.stopPullDownRefresh();
   });
+  //从数据获取最新列表后，再把原有的商品数量添加到新列表里
 
-  function Less(id, text, title, price, count) {
+  function Less(item, id, text, title, price, count) {
+    const newId = getArrayIndex(List, item);
     const oldId = id;
     const oldText = text;
     const oldtitle = title;
@@ -54,7 +105,7 @@ export default function Fruit() {
     };
     setList((List) => {
       var ListA = JSON.parse(JSON.stringify(List));
-      ListA.splice(id - 1, 1, newArray);
+      ListA.splice(newId, 1, newArray);
       return ListA;
     });
     //计算总价格
@@ -64,7 +115,8 @@ export default function Fruit() {
     setTotalCount(totalCount - 1);
   }
 
-  function Add(id, text, title, price, count) {
+  function Add(item, id, text, title, price, count) {
+    const newId = getArrayIndex(List, item);
     const oldId = id;
     const oldText = text;
     const oldtitle = title;
@@ -79,8 +131,7 @@ export default function Fruit() {
     };
     setList((List) => {
       var ListA = JSON.parse(JSON.stringify(List));
-      ListA.splice(id - 1, 1, newArray);
-      console.log(ListA);
+      ListA.splice(newId, 1, newArray);
       return ListA;
     });
     //计算总价格
@@ -177,6 +228,7 @@ export default function Fruit() {
   }
   //更新数量
   function updateCount(e, item) {
+    const newId = getArrayIndex(List, item);
     var inputCount = e.detail.value;
     const oldId = item.id;
     const oldText = item.text;
@@ -193,7 +245,7 @@ export default function Fruit() {
     };
     setList((List) => {
       var ListA = JSON.parse(JSON.stringify(List));
-      ListA.splice(oldId - 1, 1, newArray);
+      ListA.splice(newId, 1, newArray);
       return ListA;
     });
     //计算总价格 计算总数量
@@ -216,7 +268,7 @@ export default function Fruit() {
                 </view>
                 <view className="count">
                   <text>
-                    {item.id}.{item.title}
+                    {getArrayIndex(List, item) + 1}.{item.title}
                   </text>
                   <Input
                     className="input"
@@ -235,6 +287,7 @@ export default function Fruit() {
                       className="btn"
                       onClick={() =>
                         Less(
+                          item,
                           item.id,
                           item.text,
                           item.title,
@@ -248,6 +301,7 @@ export default function Fruit() {
                       className="btn"
                       onClick={() =>
                         Add(
+                          item,
                           item.id,
                           item.text,
                           item.title,
@@ -265,8 +319,10 @@ export default function Fruit() {
         </view>
         <view className="total">
           <view className="content">
-            <view className="totalP">当前总价格:{totalPrice}</view>
-            <view className="totalC">购物车商品总数:{totalCount}</view>
+            <view className="totalP">当前总价格:{totalPrice.toFixed(2)}</view>
+            <view className="totalC">
+              购物车商品总数:{totalCount.toFixed(1)}
+            </view>
           </view>
           <view className="totalBtn">
             <view className="totalBtnOrder">

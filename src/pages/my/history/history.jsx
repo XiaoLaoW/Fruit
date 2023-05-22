@@ -86,7 +86,7 @@ export default function Order() {
           );
         })}
       </view>
-      <view>订单总金额:{Price}</view>
+      <view>订单总金额:{Number(Price).toFixed(2)}元</view>
       <view>{time}</view>
       <view>
         <button

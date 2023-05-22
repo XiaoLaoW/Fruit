@@ -26,7 +26,7 @@ export default defineAppConfig({
       },
       {
         pagePath: "pages/my/index",
-        text: "我的",
+        text: "菜单",
       },
     ],
   },

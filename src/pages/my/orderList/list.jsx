@@ -65,8 +65,12 @@ export default function List() {
   return (
     <>
       <view className="all">
-        <view className="title">本次团水果总件数:{countSum}件</view>
-        <view className="title">本次团水果总金额:{priceSum}元</view>
+        <view className="title">
+          本次团水果总件数:{Number(countSum).toFixed(1)}件
+        </view>
+        <view className="title">
+          本次团水果总金额:{Number(priceSum).toFixed(2)}元
+        </view>
       </view>
 
       <view>
@@ -117,7 +121,9 @@ export default function List() {
                 className="clientName"
               >
                 <view className="name">购买人:{item.name}</view>
-                <view className="price">本次应付:{item.price}元</view>
+                <view className="price">
+                  本次应付:{item.price.toFixed(2)}元
+                </view>
               </view>
             </>
           );

@@ -25,7 +25,7 @@ export default function Order() {
   }
   return (
     <>
-      <View className="total">本单总计：{totalPrice}元 </View>
+      <View className="total">本单总计：{totalPrice.toFixed(2)}元 </View>
       <View className="tip">以下是商品明细:</View>
       <View className="list">
         {newArray.map((item) => {
