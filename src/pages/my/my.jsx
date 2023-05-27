@@ -1,21 +1,9 @@
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 // import { dateToString } from '../../utils/utils'
 export default function History() {
   const [res, setRes] = useState()
-  Taro.cloud
-    .callFunction({
-      // 要调用的云函数名称
-      name: 'orderList',
-      // 传递给云函数的event参数
-    })
-    .then((res) => {
-      setRes(res.result.data)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
   // const stamp1 = dateToString(new Date(new Date().setHours(0, 0, 0, 0))) //获取当天零点的时间
   //查看本端口历史单据
   function history() {
@@ -26,12 +14,23 @@ export default function History() {
     const c1 = new Taro.cloud.Cloud({
       resourceEnv: 'test-taro1-4gdydbsi405487f2',
     })
-
-    const ResultList = []
-    ResultList.value = res
-    console.log(res)
-    Taro.preload({ ResultList: res })
-    Taro.navigateTo({ url: './orderList/index' })
+    Taro.cloud
+      .callFunction({
+        // 要调用的云函数名称
+        name: 'orderList',
+        // 传递给云函数的event参数
+      })
+      .then((res) => {
+        const ResultList = []
+        ResultList.value = res.result.data
+        console.log(res)
+        Taro.preload({ ResultList: res.result.data })
+        Taro.navigateTo({ url: './orderList/index' })
+        console.log('已更新')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
   //清空数据库
   async function clearList() {
