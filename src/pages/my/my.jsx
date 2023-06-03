@@ -39,7 +39,7 @@ export default function History() {
       editable: true,
       placeholderText: '请输入密码',
       success: async (res) => {
-        if (res.confirm && res.content == 1) {
+        if (res.confirm && res.content == 7423674) {
           const c1 = new Taro.cloud.Cloud({
             resourceEnv: 'test-taro1-4gdydbsi405487f2',
           })

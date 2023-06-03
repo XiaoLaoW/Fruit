@@ -246,31 +246,57 @@ export default function Fruit() {
   //更新数量
   function updateCount(e, item) {
     const newId = getArrayIndex(List, item)
-    var inputCount = e.detail.value
-    const oldId = item.id
-    const oldText = item.text
-    const oldtitle = item.title
-    const oldPrice = item.price
-    const oldCount = item.count
-    const newCount = inputCount
-    const newArray = {
-      id: oldId,
-      text: oldText,
-      title: oldtitle,
-      price: oldPrice,
-      count: newCount,
-    }
-    setList((List) => {
-      var ListA = JSON.parse(JSON.stringify(List))
-      ListA.splice(newId, 1, newArray)
-      return ListA
-    })
-    //计算总价格 计算总数量
+    var inputCount = e.detail.value.replace(',', '.')
+    console.log(inputCount)
 
-    var newPrice = inputCount * oldPrice - oldCount * Number(oldPrice)
-    setTotalPrice(totalPrice + Number(newPrice))
-    var newTotalCount = totalCount - Number(oldCount) + Number(inputCount)
-    setTotalCount(newTotalCount)
+    if (inputCount.includes(',')) {
+      Taro.showToast({
+        title: '请检查符号数量',
+        icon: 'error',
+      })
+      const oldId = item.id
+      const oldText = item.text
+      const oldtitle = item.title
+      const oldPrice = item.price
+      const oldCount = item.count
+      const newArray = {
+        id: oldId,
+        text: oldText,
+        title: oldtitle,
+        price: oldPrice,
+        count: oldCount,
+      }
+      setList((List) => {
+        var ListA = JSON.parse(JSON.stringify(List))
+        ListA.splice(newId, 1, newArray)
+        return ListA
+      })
+    } else {
+      const oldId = item.id
+      const oldText = item.text
+      const oldtitle = item.title
+      const oldPrice = item.price
+      const oldCount = item.count
+      const newCount = inputCount
+      const newArray = {
+        id: oldId,
+        text: oldText,
+        title: oldtitle,
+        price: oldPrice,
+        count: newCount,
+      }
+      setList((List) => {
+        var ListA = JSON.parse(JSON.stringify(List))
+        ListA.splice(newId, 1, newArray)
+        return ListA
+      })
+      //计算总价格 计算总数量
+
+      var newPrice = inputCount * oldPrice - oldCount * Number(oldPrice)
+      setTotalPrice(totalPrice + Number(newPrice))
+      var newTotalCount = totalCount - Number(oldCount) + Number(inputCount)
+      setTotalCount(newTotalCount)
+    }
   }
 
   return (
