@@ -44,7 +44,8 @@
   float: none;
   position: fixed;
   display: flex;
-  background-color: rgb(108, 204, 108);
+  background-color: rgb(169, 241, 169);
+  opacity: 0.8;
   border-radius: 10px;
   bottom: 100rpx;
   left: 22rpx;
@@ -63,8 +64,13 @@
   margin-left: 105px;
 }
 .total .totalBtnOrder {
-  height: 60rpx;
+  max-height: 60rpx;
 }
 .total .totalBtnClear {
-  height: 60rpx;
+  max-height: 60rpx;
+}
+.search-content {
+  position: absolute;
+  padding: 20rpx;
+  color: #963030;
 }

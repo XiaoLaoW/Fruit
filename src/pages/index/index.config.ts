@@ -3,4 +3,7 @@ export default definePageConfig({
   enablePullDownRefresh: true,
   onReachBottomDistance: 30,
   backgroundTextStyle: "dark",
+  usingComponents: {
+    "van-search": "../../components/vant-weapp/dist/search/index",
+  },
 });
