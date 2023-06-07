@@ -32,7 +32,7 @@ export default function Order() {
           return (
             <view className="list-content">
               <view className="name">
-                {item.id + 1}.品名:{item.title}
+                {item.id + 1}.{item.title}
               </view>
               <view className="count">数量:{item.count}</view>
               <view className="price">单价:{item.price}</view>
