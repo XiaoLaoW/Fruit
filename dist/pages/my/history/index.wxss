@@ -1,0 +1,41 @@
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[2]!./node_modules/resolve-url-loader/index.js!./node_modules/@tarojs/webpack5-runner/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[4]!./src/pages/my/history/index.scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.goods {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.name {
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+  margin-left: 10rpx;
+}
+
+.count {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+.price {
+  display: inline-block;
+  text-align: right;
+  width: 100%;
+  margin-right: 30rpx;
+}
+
+.tip {
+  font-size: small;
+}
+
+.btn {
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}

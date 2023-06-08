@@ -1,0 +1,36 @@
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[2]!./node_modules/resolve-url-loader/index.js!./node_modules/@tarojs/webpack5-runner/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[4]!./src/pages/my/upDate/index.scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.line {
+  margin: 50rpx 5rpx;
+  padding: 5rpx 10rpx;
+  font-size: larger;
+  text-align: center;
+}
+
+.line text {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5rpx;
+}
+
+.line input {
+  display: inline-block;
+  vertical-align: middle;
+  height: 60rpx;
+  border: 1rpx solid black;
+  border-radius: 10rpx;
+}
+
+.btn1 {
+  margin: 20rpx 10rpx;
+}
+
+.btn2 {
+  margin: 20rpx 10rpx;
+}
+
+.btn text {
+  margin-left: 20rpx;
+  font-size: small;
+}

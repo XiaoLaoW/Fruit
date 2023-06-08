@@ -40,7 +40,13 @@
 
 .count .countText {
   float: right;
-  margin-right: 20rpx;
+  margin-right: 15rpx;
+}
+
+.count .input {
+  float: right;
+  margin-right: 10rpx;
+  width: 8%;
 }
 
 .countBtn {
@@ -57,7 +63,8 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background-color: rgb(108, 204, 108);
+  background-color: rgb(169, 241, 169);
+  opacity: 0.8;
   border-radius: 10rpx;
   bottom: 100rpx;
   left: 22rpx;
@@ -80,9 +87,27 @@
 }
 
 .total .totalBtnOrder {
-  height: 60rpx;
+  max-height: 60rpx;
 }
 
 .total .totalBtnClear {
-  height: 60rpx;
+  max-height: 60rpx;
+}
+
+.search-content {
+  position: absolute;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20rpx;
+  color: #963030;
+}
+
+.search button {
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }

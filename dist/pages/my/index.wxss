@@ -1,0 +1,59 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[2]!./node_modules/resolve-url-loader/index.js!./node_modules/@tarojs/webpack5-runner/node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].oneOf[0].use[4]!./src/pages/my/index.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.history1 {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 150rpx;
+  margin-top: 10rpx;
+  border-bottom: 1rpx solid #a59f9f;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #aaeaea;
+}
+
+.history1 text {
+  width: 100%;
+  text-align: center;
+  font-size: larger;
+}
+
+.history {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 150rpx;
+  margin-top: 10rpx;
+  border-bottom: 1rpx solid #a59f9f;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #e5eaea;
+}
+
+.history text {
+  width: 100%;
+  text-align: center;
+  font-size: larger;
+}
+
+.list {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 150rpx;
+  margin-top: 10rpx;
+  border-bottom: 1rpx solid #a59f9f;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #e5eaea;
+}
+
+.list text {
+  width: 100%;
+  text-align: center;
+  font-size: larger;
+}

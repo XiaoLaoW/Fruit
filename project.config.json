@@ -1,5 +1,6 @@
 {
   "miniprogramRoot": "./dist",
+  "cloudfunctionRoot": "cloudfunctions",
   "projectname": "wx-Fruit",
   "description": "my test",
   "appid": "touristappid",
@@ -9,7 +10,13 @@
     "enhance": false,
     "compileHotReLoad": false,
     "postcss": false,
-    "minified": false
+    "minified": false,
+    "packNpmRelationList": [
+      {
+        "packageJsonPath": "./package.json",
+        "miniprogramNpmDistDir": "./"
+      }
+    ]
   },
   "compileType": "miniprogram"
 }
