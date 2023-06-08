@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Taro from "@tarojs/taro";
+import { getMaxIndex } from "../../../utils/utils";
 export default function UpDate() {
   const [id, setId] = useState();
   const [name, setName] = useState("");
@@ -18,12 +19,20 @@ export default function UpDate() {
     setPrice(e.detail.value);
   }
   //判断当前商品种数
+
   useEffect(() => {
-    db.collection("fruitList")
-      .get()
+    Taro.cloud
+      .callFunction({
+        // 要调用的云函数名称
+        name: "fruitList",
+      })
       .then((res) => {
-        var count = res.data.length;
-        setId(count);
+        console.log(res);
+        var x = res.result.data;
+
+        var count = getMaxIndex(x);
+        console.log(x, count);
+        setId(count + 1);
       });
   }, []);
   //上传商品
