@@ -1,73 +1,84 @@
 //获取当前时间
 function getNowTime() {
-  var date = new Date()
+  var date = new Date();
   //年 getFullYear()：四位数字返回年份
-  var year = date.getFullYear() //getFullYear()代替getYear()
+  var year = date.getFullYear(); //getFullYear()代替getYear()
   //月 getMonth()：0 ~ 11
-  var month = date.getMonth() + 1
+  var month = date.getMonth() + 1;
   //日 getDate()：(1 ~ 31)
-  var day = date.getDate()
+  var day = date.getDate();
   //时 getHours()：(0 ~ 23)
-  var hour = date.getHours()
+  var hour = date.getHours();
   //分 getMinutes()： (0 ~ 59)
-  var minute = date.getMinutes()
+  var minute = date.getMinutes();
   //秒 getSeconds()：(0 ~ 59)
-  var second = date.getSeconds()
+  var second = date.getSeconds();
 
   var time =
     year +
-    '-' +
+    "-" +
     addZero(month) +
-    '-' +
+    "-" +
     addZero(day) +
-    ' ' +
+    " " +
     addZero(hour) +
-    ':' +
+    ":" +
     addZero(minute) +
-    ':' +
-    addZero(second)
-  return time
+    ":" +
+    addZero(second);
+  return time;
 }
 
 //小于10的拼接上0字符串
 function addZero(s) {
-  return s < 10 ? '0' + s : s
+  return s < 10 ? "0" + s : s;
 }
 
 function dateToString(date) {
-  var year = date.getFullYear()
-  var month = (date.getMonth() + 1).toString()
-  var day = date.getDate().toString()
+  var year = date.getFullYear();
+  var month = (date.getMonth() + 1).toString();
+  var day = date.getDate().toString();
   if (month.length == 1) {
-    month = '0' + month
+    month = "0" + month;
   }
   if (day.length == 1) {
-    day = '0' + day
+    day = "0" + day;
   }
-  var hours = date.getHours().toString()
+  var hours = date.getHours().toString();
   if (hours.length == 1) {
-    hours = '0' + hours
+    hours = "0" + hours;
   }
-  var mintus = date.getMinutes().toString()
+  var mintus = date.getMinutes().toString();
   if (mintus.length == 1) {
-    mintus = '0' + mintus
+    mintus = "0" + mintus;
   }
-  var second = date.getSeconds().toString()
+  var second = date.getSeconds().toString();
   if (second.length == 1) {
-    second = '0' + second
+    second = "0" + second;
   }
   var dateTime =
-    year + '-' + month + '-' + day + ' ' + hours + ':' + mintus + ':' + second
-  return dateTime
+    year + "-" + month + "-" + day + " " + hours + ":" + mintus + ":" + second;
+  return dateTime;
 }
 //获取下标
 function getArrayIndex(arr, obj) {
-  var i = arr.length
+  var i = arr.length;
   while (i--) {
-    if (arr[i] === obj) {
-      return i
+    if (arr[i].title === obj.title) {
+      return i;
     }
   }
-  return -1
+  return -1;
 }
-export { getNowTime, dateToString, getArrayIndex }
+//获取数组内最大的id
+function getMaxIndex(arr) {
+  var i = arr.length;
+  var maxId = arr[0].id;
+  while (i--) {
+    if (arr[i].id > maxId) {
+      maxId = arr[i].id;
+    }
+  }
+  return maxId;
+}
+export { getNowTime, dateToString, getArrayIndex, getMaxIndex };

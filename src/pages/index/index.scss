@@ -71,6 +71,11 @@
 }
 .search-content {
   position: absolute;
+  display: flex;
+  flex-direction: column;
   padding: 20rpx;
   color: #963030;
+}
+.search button {
+  justify-content: center;
 }
