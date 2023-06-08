@@ -60,8 +60,6 @@ export default function Fruit() {
         name: 'fruitList',
       })
       .then((res) => {
-        console.log('已更新:')
-
         setList(() => {
           var newList1 = []
 
