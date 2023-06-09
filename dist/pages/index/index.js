@@ -141,7 +141,6 @@ function Fruit() {
             // 要调用的云函数名称
             name: 'fruitList'
           }).then(function (res) {
-            console.log('已更新:');
             setList(function () {
               var newList1 = [];
               var newList = res.result.data;
