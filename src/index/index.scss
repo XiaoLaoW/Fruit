@@ -1,0 +1,110 @@
+.container {
+  flex-direction: column;
+  display: flex;
+  margin: 10rpx 20rpx;
+  padding: 10rpx;
+  border: 1px solid rgba(128, 128, 128, 0.26);
+  border-radius: 10px;
+  height: 90%;
+}
+.arrow {
+  height: 40rpx;
+  width: 40rpx;
+}
+.btn2 {
+  height: 60rpx;
+  width: 60rpx;
+  margin-right: 20rpx;
+}
+.btn3 {
+  height: 60rpx;
+  width: 60rpx;
+  margin-left: 10rpx;
+}
+.count {
+  margin-bottom: 10rpx;
+}
+.price {
+  margin-bottom: 10rpx;
+}
+.content {
+  margin-bottom: 10rpx;
+}
+.count .countText {
+  width: 100rpx;
+  margin-right: 15rpx;
+}
+
+.total {
+  float: none;
+  position: fixed;
+  display: flex;
+  background-color: rgb(169, 241, 169);
+  opacity: 0.8;
+  border-radius: 10px;
+  bottom: 100rpx;
+  left: 22rpx;
+}
+.total .content {
+  padding-left: 10rpx;
+}
+.total .totalP {
+  padding-bottom: 10rpx;
+}
+.total .totalC {
+  padding-top: 10rpx;
+}
+
+.totalBtn {
+  margin-left: 105px;
+}
+.total .totalBtnOrder {
+  max-height: 60rpx;
+}
+.total .totalBtnClear {
+  max-height: 60rpx;
+}
+.search-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx;
+  color: #963030;
+}
+.search button {
+  justify-content: center;
+}
+.all {
+  display: flex;
+  flex-direction: row;
+}
+.left {
+  display: flex;
+  flex-direction: column;
+  width: 250rpx;
+}
+.left .picture {
+  width: 250rpx;
+  height: 200rpx;
+  border-radius: 8rpx;
+}
+.right {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20rpx;
+}
+.right .cont {
+  padding-top: 45rpx;
+}
+.countBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.countBtn .input {
+  margin-left: 5rpx;
+  width: 40rpx;
+}
+.countBtn .btn1 {
+  margin-left: 80rpx;
+}
